@@ -3,7 +3,7 @@ const mapActions = {
         alias: 'c', 
         description: 'create project', 
         examples: [ 
-            'lee-cli create <project-name>'
+            'frytz create <project-name>'
         ]
     },
     '*': {
