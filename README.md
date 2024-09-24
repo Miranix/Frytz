@@ -9,12 +9,12 @@ Frytz is a lightweight yet powerful CLI tool designed to quickly scaffold common
 
 ## Supported Stacks
 
-| Platform | Platform Framework | JS Framework | UI Framework                                              |
-| -------- | ------------------ | ------------ | --------------------------------------------------------- |
-| Web      | None               | React，Vue   | React：Antd  ShadcnUI MaterialUI<br />Vue：ElementPlus |
-| App      | React Native       | React        | React：Antd  ShadcnUI MaterialUI<br />Vue：ElementPlus |
-| Desktop  | Electron           | React，Vue   | React：Antd  ShadcnUI MaterialUI<br />Vue：ElementPlus |
-| Mini App | Uniapp/Taro        | React，Vue   | React：Antd  ShadcnUI MaterialUI<br />Vue：ElementPlus |
+| Platform | Platform Framework | JS Framework | UI Framework                                  |
+| -------- | ------------------ | ------------ | --------------------------------------------- |
+| Web      | None               | React，Vue   | React：Antd  ShadcnUI<br />Vue：ElementPlus |
+| App      | React Native       | React        | React：Antd  ShadcnUI<br />Vue：ElementPlus |
+| Desktop  | Electron           | React，Vue   | React：Antd  ShadcnUI<br />Vue：ElementPlus |
+| Mini App | Uniapp/Taro        | React，Vue   | React：Antd  ShadcnUI<br />Vue：ElementPlus |
 
 ## Install
 

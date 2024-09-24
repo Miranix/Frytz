@@ -71,7 +71,6 @@ module.exports = async (projectName) => {
         choices: [
             "Ant Design",
             "ShadcnUI(base on Tailwind)",
-            "MaterialUI",
         ],
         when: (answers) => answers.jsFramework === 'React'
     }
@@ -115,6 +114,38 @@ module.exports = async (projectName) => {
         const spinner = ora('waiting download project...');
         spinner.start();
         await downloadGit('direct:https://github.com/Miranix/Electron-React-Shadcn.git#main', path.resolve(process.cwd(), projectName), { clone: true },
+            (err) => {
+                if (err) {
+                    console.log(`Download Failed！${err}`);
+                    spinner.stop()
+                } else {
+                    // Populate Template Data
+                    let populateData = {
+                        name: projectName,
+                        author: answers.email ? answers.author :'author',
+                        email: answers.email ? answers.email :'email'
+                    }
+                    
+                    const packagePath = path.resolve(process.cwd(), projectName,'package.json');
+                    const mainPackagePath = path.resolve(process.cwd(), projectName, 'electron-main','package.json')
+                    const rendererPackagePath =path.resolve(process.cwd(), projectName, 'electron-renderer','package.json')
+                    const packageContent = fs.readFileSync(packagePath, "utf8");
+                    const mainPackageContent = fs.readFileSync(mainPackagePath, "utf8");
+                    const rendererPackageContent = fs.readFileSync(rendererPackagePath, "utf8");
+                    const packageResult = handlebars.compile(packageContent)(populateData);
+                    const mainPackageResult = handlebars.compile(mainPackageContent)(populateData);
+                    const rendererPackageResult = handlebars.compile(rendererPackageContent)(populateData);
+                    fs.writeFileSync(packagePath, packageResult)
+                    fs.writeFileSync(mainPackagePath, mainPackageResult)
+                    fs.writeFileSync(rendererPackagePath, rendererPackageResult)
+                    spinner.succeed();
+
+                }
+            })
+    }else if(answers?.['devPlatForm'] === 'Desktop' && answers?.['platformTech'] === 'Electron' && answers?.['jsFramework'] === 'Vue' && answers?.['UIFramework-1'] === 'ElementPlus'){
+        const spinner = ora('waiting download project...');
+        spinner.start();
+        await downloadGit('direct:https://github.com/Miranix/Electron-Vue-ElementPlus.git#main', path.resolve(process.cwd(), projectName), { clone: true },
             (err) => {
                 if (err) {
                     console.log(`Download Failed！${err}`);
