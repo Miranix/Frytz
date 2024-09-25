@@ -228,5 +228,32 @@ module.exports = async (projectName) => {
                     spinner.succeed();
                 }
             })
+    }else if(answers?.['devPlatForm'] === 'Web'  && answers?.['jsFramework'] === 'React' && answers?.['UIFramework-2'] === 'ShadcnUI(base on Tailwind)'){
+        const spinner = ora('waiting download project...');
+        spinner.start();
+        await downloadGit('direct:https://github.com/Miranix/Web-React-Shadcn.git#main', path.resolve(process.cwd(), projectName), { clone: true },
+            (err) => {
+                if (err) {
+                    console.log(`Download Failed！${err}`);
+                    spinner.stop()
+                } else {
+                    // Populate Template Data
+                    let populateData = {
+                        name: projectName,
+                        author: answers.email ? answers.author :'author',
+                        email: answers.email ? answers.email :'email'
+                    }
+                    
+                    const packagePath = path.resolve(process.cwd(), projectName,'package.json');
+                    const rendererPackagePath =path.resolve(process.cwd(), projectName, 'web-renderer','package.json')
+                    const packageContent = fs.readFileSync(packagePath, "utf8");
+                    const rendererPackageContent = fs.readFileSync(rendererPackagePath, "utf8");
+                    const packageResult = handlebars.compile(packageContent)(populateData);
+                    const rendererPackageResult = handlebars.compile(rendererPackageContent)(populateData);
+                    fs.writeFileSync(packagePath, packageResult)
+                    fs.writeFileSync(rendererPackagePath, rendererPackageResult)
+                    spinner.succeed();
+                }
+            })
     }
 }
